@@ -14,6 +14,8 @@ To install docker on Ubuntu, please run the following commands:
     sudo apt-get install docker.io
     sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker
 
-To install the latest stable version of dokku, you can run the following bootstrapper command:
+To install the latest **unstable** version of dokku, you can run the following bootstrapper command:
 
-    $ wget -qO- https://raw.githubusercontent.com/Evlos/forked-dokku/v0.2.3/bootstrap.sh | sudo DOKKU_TAG=v0.2.3 bash
+    $ wget -qO- https://raw.githubusercontent.com/Evlos/forked-dokku/bootstrap.sh | sudo bash
+
+The reason of using **unstable** version is the commits so far contains many fixes, I will write warnings if there is problem happened on my production environment.
