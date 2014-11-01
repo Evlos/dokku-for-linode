@@ -1,29 +1,19 @@
-# Dokku [![Build Status](https://travis-ci.org/progrium/dokku.png?branch=master)](https://travis-ci.org/progrium/dokku)
+# Dokku
 
-Docker powered mini-Heroku. The smallest PaaS implementation you've ever seen. Sponsored by our friends at [Deis](http://deis.io/).
+Please refer to [https://github.com/progrium/dokku](https://github.com/progrium/dokku).
 
-## Requirements
+## What has been modified in this forked version
 
-- A fresh VM running either Ubuntu `14.04 x64` or `12.04 x64`
+Docker installation related has been all removed, which means it can be installed on server with **pre-installed docker** and **Linode** that doesn't compatible with aufs.
 
 ## Installing
 
+To install docker on Ubuntu, please run the following commands:
+
+    sudo apt-get update
+    sudo apt-get install docker.io
+    sudo ln -sf /usr/bin/docker.io /usr/local/bin/docker
+
 To install the latest stable version of dokku, you can run the following bootstrapper command:
 
-    $ wget -qO- https://raw.github.com/progrium/dokku/v0.2.3/bootstrap.sh | sudo DOKKU_TAG=v0.2.3 bash
-
-## Documentation
-
-Full documentation - including advanced installation docs - are available online at [docs](http://progrium.viewdocs.io/dokku/index)
-
-## Support
-
-You can use [Github Issues](https://github.com/progrium/dokku/issues), check [Troubleshooting](https://github.com/progrium/dokku/wiki/Troubleshooting) on the wiki, or join us on [freenode in #dokku](https://webchat.freenode.net/?channels=%23dokku)
-
-## Sponsors
-
-Dokku is currented sponsored by the enterprise grade, multi-host PaaS project [Deis](http://deis.io/).
-
-## License
-
-MIT
+    $ wget -qO- https://raw.githubusercontent.com/Evlos/forked-dokku/v0.2.3/bootstrap.sh | sudo DOKKU_TAG=v0.2.3 bash
