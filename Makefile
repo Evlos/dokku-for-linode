@@ -37,7 +37,7 @@ version:
 plugin-dependencies: pluginhook
 	dokku plugins-install-dependencies
 
-plugins: pluginhook docker
+plugins: pluginhook
 	dokku plugins-install
 
 dependencies: sshcommand pluginhook stack
