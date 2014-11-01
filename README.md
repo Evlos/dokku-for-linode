@@ -19,3 +19,12 @@ To install the latest **unstable** version of dokku, you can run the following b
     $ wget -qO- https://raw.githubusercontent.com/Evlos/forked-dokku/master/bootstrap.sh | sudo bash
 
 The reason of using **unstable** version is the commits so far contains many fixes, I will write warnings if there is problem happened on my production environment.
+
+After the installation, set the ssh key for user: dokku on your server.
+
+	$ cat ~/.ssh/id_rsa.pub | ssh your-server-address "sudo sshcommand acl-add dokku progrium"
+
+And add git remote address to the app your want to deploy.
+
+	$ git remote add public dokku@your-server-address:node-js-app
+	$ git push public master

@@ -14,7 +14,7 @@ ifeq (vagrant-dokku,$(firstword $(MAKECMDGOALS)))
   $(eval $(RUN_ARGS):;@:)
 endif
 
-.PHONY: all install copyfiles version plugins dependencies sshcommand pluginhook stack count vagrant-acl-add vagrant-dokku
+.PHONY: all install copyfiles version plugins dependencies sshcommand pluginhook docker-fix stack count vagrant-acl-add vagrant-dokku
 
 all:
 	# Type "make install" to install.
@@ -37,10 +37,10 @@ version:
 plugin-dependencies: pluginhook
 	dokku plugins-install-dependencies
 
-plugins: pluginhook
+plugins: pluginhook docker-fix
 	dokku plugins-install
 
-dependencies: sshcommand pluginhook stack
+dependencies: sshcommand pluginhook docker-fix stack
 
 sshcommand:
 	wget -qO /usr/local/bin/sshcommand ${SSHCOMMAND_URL}
@@ -50,6 +50,10 @@ sshcommand:
 pluginhook:
 	wget -qO /tmp/pluginhook_0.1.0_amd64.deb ${PLUGINHOOK_URL}
 	dpkg -i /tmp/pluginhook_0.1.0_amd64.deb
+
+docker-fix:
+	egrep -i "^docker" /etc/group || groupadd docker
+	usermod -aG docker dokku
 
 stack:
 	@echo "Start building buildstep"
