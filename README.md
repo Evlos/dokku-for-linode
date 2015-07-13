@@ -16,7 +16,7 @@ To install docker on Ubuntu, please run the following commands:
 
 To install the latest **unstable** version of dokku, you can run the following bootstrapper command:
 
-    $ wget -qO- https://raw.githubusercontent.com/Evlos/forked-dokku/master/bootstrap.sh | sudo bash
+    $ wget -qO- https://raw.githubusercontent.com/Evlos/dokku/0.2.3.1/bootstrap.sh | sudo bash
 
 The reason of using **unstable** version is the commits so far contains many fixes, I will write warnings if there is problem happened on my production environment.
 
