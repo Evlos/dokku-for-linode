@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eo pipefail
 export DEBIAN_FRONTEND=noninteractive
-export DOKKU_REPO=${DOKKU_REPO:-"https://github.com/Evlos/forked-dokku.git"}
+export DOKKU_REPO=${DOKKU_REPO:-"https://github.com/Evlos/dokku.git"}
 
 if ! which apt-get &>/dev/null
 then
@@ -14,8 +14,8 @@ apt-get install -qq -y git make curl software-properties-common man-db
 
 [[ `lsb_release -sr` == "12.04" ]] && apt-get install -qq -y python-software-properties
 
-cd ~ && test -d forked-dokku || git clone $DOKKU_REPO
-cd forked-dokku
+cd ~ && test -d dokku || git clone $DOKKU_REPO
+cd dokku
 git fetch origin
 
 if [[ -n $DOKKU_BRANCH ]]; then
