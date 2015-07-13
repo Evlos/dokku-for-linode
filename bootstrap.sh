@@ -2,6 +2,7 @@
 set -eo pipefail
 export DEBIAN_FRONTEND=noninteractive
 export DOKKU_REPO=${DOKKU_REPO:-"https://github.com/Evlos/dokku.git"}
+export DOKKU_BRANCH=0.2.3.1
 
 if ! which apt-get &>/dev/null
 then
