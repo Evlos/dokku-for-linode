@@ -1,6 +1,10 @@
-# Dokku [![Build Status](https://img.shields.io/circleci/project/progrium/dokku.svg "Build Status")](https://circleci.com/gh/progrium/dokku/tree/master) [![Ubuntu Package](https://img.shields.io/badge/package-ubuntu-brightgreen.svg?style=flat-square "Ubuntu Package")](https://packagecloud.io/dokku/dokku) [![IRC Network](https://img.shields.io/badge/irc-freenode-blue.svg "IRC Freenode")](https://webchat.freenode.net/?channels=dokku) [![Documentation](https://img.shields.io/badge/docs-viewdocs-blue.svg "Viewdocs")](http://progrium.viewdocs.io/dokku/index)
+# Dokku
 
-Docker powered mini-Heroku. The smallest PaaS implementation you've ever seen. Sponsored by our friends at [Deis](http://deis.io/).
+Please refer to [https://github.com/progrium/dokku](https://github.com/progrium/dokku).
+
+## What has been modified
+
+Docker installation related has been all removed, which means it can be installed on server with **pre-installed docker** and **Linode** that doesn't compatible with aufs.
 
 ## Requirements
 
@@ -8,33 +12,22 @@ Docker powered mini-Heroku. The smallest PaaS implementation you've ever seen. S
 
 ## Installing
 
-To install the latest stable release, you can run the following commands as a user that has access to `sudo`:
+To install docker on Ubuntu, please run the following commands:
 
-    wget https://raw.github.com/progrium/dokku/v0.3.21/bootstrap.sh
-    sudo DOKKU_TAG=v0.3.21 bash bootstrap.sh
+    wget -qO- https://get.docker.com/ | sh
 
-### Upgrading
+To install this special version of dokku, you can run the following bootstrapper command:
 
-[View the docs for upgrading](http://progrium.viewdocs.io/dokku/upgrading) from an older version of Dokku.
+	wget https://raw.githubusercontent.com/Evlos/dokku/0.3.21.1/bootstrap.sh
+    sudo DOKKU_BRANCH=0.3.21.1 bash bootstrap.sh
 
-## Documentation
+The reason of using this special version is the commits so far contains many fixes, I will write warnings if there is problem happened on my production environment.
 
-Full documentation - including advanced installation docs - are available online at [docs](http://progrium.viewdocs.io/dokku/index)
+After the installation, set the ssh key for user: dokku on your server.
 
-## Support
+	cat ~/.ssh/id_rsa.pub | ssh your-server-address "sudo sshcommand acl-add dokku progrium"
 
-You can use [Github Issues](https://github.com/progrium/dokku/issues), check [Troubleshooting](http://progrium.viewdocs.io/dokku/troubleshooting) in the documentation, or join us on [freenode in #dokku](https://webchat.freenode.net/?channels=%23dokku)
+And add git remote address to the app your want to deploy.
 
-## Contribution
-
-After checking [Github Issues](https://github.com/progrium/dokku/issues), the [Troubleshooting Guide](http://progrium.viewdocs.io/dokku/troubleshooting) or having a chat with us on [freenode in #dokku](https://webchat.freenode.net/?channels=%23dokku), feel free to fork and create a Pull Request.
-
-While we may not merge your PR as is, they serve to start conversations and improve the general dokku experience for all users.
-
-## Sponsors
-
-Dokku is currently sponsored by the enterprise grade, multi-host PaaS project [Deis](http://deis.io/).
-
-## License
-
-MIT
+	git remote add server dokku@your-server-address:node-js-app
+	git push server master

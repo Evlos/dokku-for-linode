@@ -14,7 +14,7 @@ ifeq (vagrant-dokku,$(firstword $(MAKECMDGOALS)))
   $(eval $(RUN_ARGS):;@:)
 endif
 
-.PHONY: all apt-update install copyfiles man-db version plugins dependencies sshcommand pluginhook docker aufs stack count dokku-installer vagrant-acl-add vagrant-dokku
+.PHONY: all apt-update install copyfiles man-db version plugins dependencies sshcommand pluginhook docker-fix stack count dokku-installer vagrant-acl-add vagrant-dokku
 
 include tests.mk
 include deb.mk
@@ -58,10 +58,10 @@ version:
 plugin-dependencies: pluginhook
 	dokku plugins-install-dependencies
 
-plugins: pluginhook docker
+plugins: pluginhook docker-fix
 	dokku plugins-install
 
-dependencies: apt-update sshcommand pluginhook docker help2man man-db
+dependencies: apt-update sshcommand pluginhook docker-fix help2man man-db
 	$(MAKE) -e stack
 
 apt-update:
@@ -82,26 +82,9 @@ pluginhook:
 	wget -qO /tmp/pluginhook_0.1.0_amd64.deb ${PLUGINHOOK_URL}
 	dpkg -i /tmp/pluginhook_0.1.0_amd64.deb
 
-docker: aufs
-	apt-get install -qq -y curl
+docker-fix:
 	egrep -i "^docker" /etc/group || groupadd docker
 	usermod -aG docker dokku
-ifndef CI
-	curl -sSL https://get.docker.com/gpg | apt-key add -
-	echo deb http://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list
-	apt-get update
-ifdef DOCKER_VERSION
-	apt-get install -qq -y lxc-docker-${DOCKER_VERSION}
-else
-	apt-get install -qq -y lxc-docker-1.6.2
-endif
-	sleep 2 # give docker a moment i guess
-endif
-
-aufs:
-ifndef CI
-	lsmod | grep aufs || modprobe aufs || apt-get install -qq -y linux-image-extra-`uname -r` > /dev/null
-endif
 
 stack:
 ifeq ($(shell test -e /var/run/docker.sock && touch -a -c /var/run/docker.sock && echo $$?),0)
