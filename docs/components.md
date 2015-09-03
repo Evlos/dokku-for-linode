@@ -1,6 +1,5 @@
 # Components
 
- * [Docker](https://github.com/dotcloud/docker) - Container runtime and manager
  * [Herokuish](https://github.com/gliderlabs/herokuish) - Buildpack builder
  * [pluginhook](https://github.com/progrium/pluginhook) - Shell based plugins and hooks
  * [sshcommand](https://github.com/progrium/sshcommand) - Fixed commands over SSH
